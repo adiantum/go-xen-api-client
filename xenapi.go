@@ -6,13 +6,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/serenize/snaker"
 	"io/ioutil"
 	"os"
 	"regexp"
 	"sort"
 	"strings"
 	"text/template"
+
+	"github.com/serenize/snaker"
 )
 
 var (
@@ -291,6 +292,13 @@ type {{ .Name|exported }}Class struct {
 }
 `
 
+const asyncClassTypeTemplate string = `
+{{ .Description|godoc }}
+type Async{{ .Name|exported}}Class struct {
+	client *Client
+}
+`
+
 const refTypeTemplate string = `
 type {{ .Name|exported }}Ref string
 `
@@ -315,16 +323,40 @@ func (_class {{ .Class.Name|exported }}Class) {{ .Message.Name|exported }}({{ ra
 }
 `
 
+const asyncMessageFuncTemplate string = `
+{{ .Message.Description|godoc }}{{ if .Message.Errors }}
+//
+// Errors:{{ range .Message.Errors }}
+//  {{ .Name }} - {{ .Doc }}{{ end }}{{ end }}
+func (_class Async{{ .Class.Name|exported }}Class) {{ .Message.Name|exported }}({{ range $index, $param := .Message.Params }}{{ if gt $index 0 }}, {{ end }}{{ .Name|internal }} {{ .GoType }}{{ end }}) (_retval TaskRef, _err error) {
+	_method := "Async.{{ .Class.Name }}.{{ .Message.Name }}"{{ range .Message.Params }}
+	_{{ .Name|internal }}Arg, _err := {{ .Type|convertToXen }}(fmt.Sprintf("%s(%s)", _method, {{ printf "%q" .Name }}), {{ .Name|internal }})
+	if _err != nil {
+		return
+	}{{ end }}
+	_result, _err := _class.client.APICall(_method{{ range .Message.Params }}, _{{ .Name|internal }}Arg{{ end }})
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+`
+
 const clientStructTemplate string = `
 type Client struct {
 	rpc *xmlrpc.Client{{ range .Classes }}
 	{{ .Name|exported }} {{ .Name|exported }}Class{{ end }}
+	Async struct { {{ range .Classes }}
+		{{ .Name|exported }} Async{{ .Name|exported }}Class{{end}}
+	}
 }
 
 func prepClient(rpc *xmlrpc.Client) *Client {
 	var client Client
 	client.rpc = rpc{{ range .Classes }}
-	client.{{ .Name|exported }} = {{ .Name|exported }}Class{&client}{{ end }}
+	client.{{ .Name|exported }} = {{ .Name|exported }}Class{&client}
+	client.Async.{{ .Name|exported }} = Async{{ .Name|exported }}Class{&client}{{ end }}
 	return &client
 }
 `
@@ -566,8 +598,10 @@ func (generator *apiGenerator) prepTemplates() (err error) {
 		"EnumType":                   enumTypeTemplate,
 		"RecordType":                 recordTypeTemplate,
 		"ClassType":                  classTypeTemplate,
+		"AsyncClassType":             asyncClassTypeTemplate,
 		"RefType":                    refTypeTemplate,
 		"MessageFunc":                messageFuncTemplate,
+		"AsyncMessageFunc":           asyncMessageFuncTemplate,
 		"ClientStruct":               clientStructTemplate,
 		"convertSimpleTypeToGoFunc":  convertSimpleTypeToGoFuncTemplate,
 		"convertSimpleTypeToXenFunc": convertSimpleTypeToXenFuncTemplate,
@@ -817,6 +851,11 @@ func (generator *apiGenerator) generateClassAPI(class *xapiClass) (err error) {
 		return
 	}
 
+	err = generator.templates.ExecuteTemplate(fileHandle, "AsyncClassType", class)
+	if err != nil {
+		return
+	}
+
 	for _, message := range class.Messages {
 
 		context := map[string]interface{}{
@@ -825,6 +864,20 @@ func (generator *apiGenerator) generateClassAPI(class *xapiClass) (err error) {
 		}
 
 		err = generator.templates.ExecuteTemplate(fileHandle, "MessageFunc", context)
+		if err != nil {
+			return
+		}
+
+	}
+
+	for _, message := range class.Messages {
+
+		context := map[string]interface{}{
+			"Class":   class,
+			"Message": message,
+		}
+
+		err = generator.templates.ExecuteTemplate(fileHandle, "AsyncMessageFunc", context)
 		if err != nil {
 			return
 		}

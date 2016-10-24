@@ -40,6 +40,11 @@ type VIFMetricsClass struct {
 	client *Client
 }
 
+// The metrics associated with a virtual network device
+type AsyncVIFMetricsClass struct {
+	client *Client
+}
+
 // Return a map of VIF_metrics references to VIF_metrics records for all VIF_metrics instances known to the system.
 func (_class VIFMetricsClass) GetAllRecords(sessionID SessionRef) (_retval map[VIFMetricsRef]VIFMetricsRecord, _err error) {
 	_method := "VIF_metrics.get_all_records"
@@ -261,5 +266,241 @@ func (_class VIFMetricsClass) GetRecord(sessionID SessionRef, self VIFMetricsRef
 		return
 	}
 	_retval, _err = convertVIFMetricsRecordToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a map of VIF_metrics references to VIF_metrics records for all VIF_metrics instances known to the system.
+func (_class AsyncVIFMetricsClass) GetAllRecords(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_all_records"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a list of all the VIF_metrics instances known to the system.
+func (_class AsyncVIFMetricsClass) GetAll(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_all"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Remove the given key and its corresponding value from the other_config field of the given VIF_metrics.  If the key is not in that Map, then do nothing.
+func (_class AsyncVIFMetricsClass) RemoveFromOtherConfig(sessionID SessionRef, self VIFMetricsRef, key string) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.remove_from_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Add the given key-value pair to the other_config field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) AddToOtherConfig(sessionID SessionRef, self VIFMetricsRef, key string, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.add_to_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the other_config field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) SetOtherConfig(sessionID SessionRef, self VIFMetricsRef, value map[string]string) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.set_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToStringMapToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the other_config field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) GetOtherConfig(sessionID SessionRef, self VIFMetricsRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the last_updated field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) GetLastUpdated(sessionID SessionRef, self VIFMetricsRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_last_updated"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the io/write_kbs field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) GetIoWriteKbs(sessionID SessionRef, self VIFMetricsRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_io_write_kbs"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the io/read_kbs field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) GetIoReadKbs(sessionID SessionRef, self VIFMetricsRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_io_read_kbs"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the uuid field of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) GetUUID(sessionID SessionRef, self VIFMetricsRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a reference to the VIF_metrics instance with the specified UUID.
+func (_class AsyncVIFMetricsClass) GetByUUID(sessionID SessionRef, uuid string) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_by_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_uuidArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "uuid"), uuid)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _uuidArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a record containing the current state of the given VIF_metrics.
+func (_class AsyncVIFMetricsClass) GetRecord(sessionID SessionRef, self VIFMetricsRef) (_retval TaskRef, _err error) {
+	_method := "Async.VIF_metrics.get_record"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVIFMetricsRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
 	return
 }

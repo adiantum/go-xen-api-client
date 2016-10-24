@@ -114,6 +114,11 @@ type VMPPClass struct {
 	client *Client
 }
 
+// VM Protection Policy
+type AsyncVMPPClass struct {
+	client *Client
+}
+
 // Return a map of VMPP references to VMPP records for all VMPPs known to the system.
 func (_class VMPPClass) GetAllRecords(sessionID SessionRef) (_retval map[VMPPRef]VMPPRecord, _err error) {
 	_method := "VMPP.get_all_records"
@@ -1127,5 +1132,1117 @@ func (_class VMPPClass) GetRecord(sessionID SessionRef, self VMPPRef) (_retval V
 		return
 	}
 	_retval, _err = convertVMPPRecordToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a map of VMPP references to VMPP records for all VMPPs known to the system.
+func (_class AsyncVMPPClass) GetAllRecords(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_all_records"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a list of all the VMPPs known to the system.
+func (_class AsyncVMPPClass) GetAll(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_all"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetArchiveLastRunTime(sessionID SessionRef, self VMPPRef, value time.Time) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_archive_last_run_time"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertTimeToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetBackupLastRunTime(sessionID SessionRef, self VMPPRef, value time.Time) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_backup_last_run_time"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertTimeToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) RemoveFromAlarmConfig(sessionID SessionRef, self VMPPRef, key string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.remove_from_alarm_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) RemoveFromArchiveSchedule(sessionID SessionRef, self VMPPRef, key string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.remove_from_archive_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) RemoveFromArchiveTargetConfig(sessionID SessionRef, self VMPPRef, key string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.remove_from_archive_target_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) RemoveFromBackupSchedule(sessionID SessionRef, self VMPPRef, key string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.remove_from_backup_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) AddToAlarmConfig(sessionID SessionRef, self VMPPRef, key string, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.add_to_alarm_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) AddToArchiveSchedule(sessionID SessionRef, self VMPPRef, key string, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.add_to_archive_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) AddToArchiveTargetConfig(sessionID SessionRef, self VMPPRef, key string, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.add_to_archive_target_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) AddToBackupSchedule(sessionID SessionRef, self VMPPRef, key string, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.add_to_backup_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetAlarmConfig(sessionID SessionRef, self VMPPRef, value map[string]string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_alarm_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToStringMapToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the value of the is_alarm_enabled field
+func (_class AsyncVMPPClass) SetIsAlarmEnabled(sessionID SessionRef, self VMPPRef, value bool) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_is_alarm_enabled"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertBoolToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetArchiveTargetConfig(sessionID SessionRef, self VMPPRef, value map[string]string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_archive_target_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToStringMapToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the value of the archive_target_config_type field
+func (_class AsyncVMPPClass) SetArchiveTargetType(sessionID SessionRef, self VMPPRef, value VmppArchiveTargetType) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_archive_target_type"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertEnumVmppArchiveTargetTypeToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetArchiveSchedule(sessionID SessionRef, self VMPPRef, value map[string]string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_archive_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToStringMapToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the value of the archive_frequency field
+func (_class AsyncVMPPClass) SetArchiveFrequency(sessionID SessionRef, self VMPPRef, value VmppArchiveFrequency) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_archive_frequency"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertEnumVmppArchiveFrequencyToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetBackupSchedule(sessionID SessionRef, self VMPPRef, value map[string]string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_backup_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToStringMapToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the value of the backup_frequency field
+func (_class AsyncVMPPClass) SetBackupFrequency(sessionID SessionRef, self VMPPRef, value VmppBackupFrequency) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_backup_frequency"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertEnumVmppBackupFrequencyToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// 
+func (_class AsyncVMPPClass) SetBackupRetentionValue(sessionID SessionRef, self VMPPRef, value int) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_backup_retention_value"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertIntToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call fetches a history of alerts for a given protection policy
+func (_class AsyncVMPPClass) GetAlerts(sessionID SessionRef, vmpp VMPPRef, hoursFromNow int) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_alerts"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_vmppArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "vmpp"), vmpp)
+	if _err != nil {
+		return
+	}
+	_hoursFromNowArg, _err := convertIntToXen(fmt.Sprintf("%s(%s)", _method, "hours_from_now"), hoursFromNow)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _vmppArg, _hoursFromNowArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call archives the snapshot provided as a parameter
+func (_class AsyncVMPPClass) ArchiveNow(sessionID SessionRef, snapshot VMRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.archive_now"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_snapshotArg, _err := convertVMRefToXen(fmt.Sprintf("%s(%s)", _method, "snapshot"), snapshot)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _snapshotArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call executes the protection policy immediately
+func (_class AsyncVMPPClass) ProtectNow(sessionID SessionRef, vmpp VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.protect_now"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_vmppArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "vmpp"), vmpp)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _vmppArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the backup_type field of the given VMPP.
+func (_class AsyncVMPPClass) SetBackupType(sessionID SessionRef, self VMPPRef, value VmppBackupType) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_backup_type"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertEnumVmppBackupTypeToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the is_policy_enabled field of the given VMPP.
+func (_class AsyncVMPPClass) SetIsPolicyEnabled(sessionID SessionRef, self VMPPRef, value bool) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_is_policy_enabled"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertBoolToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the name/description field of the given VMPP.
+func (_class AsyncVMPPClass) SetNameDescription(sessionID SessionRef, self VMPPRef, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_name_description"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the name/label field of the given VMPP.
+func (_class AsyncVMPPClass) SetNameLabel(sessionID SessionRef, self VMPPRef, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.set_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the recent_alerts field of the given VMPP.
+func (_class AsyncVMPPClass) GetRecentAlerts(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_recent_alerts"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the alarm_config field of the given VMPP.
+func (_class AsyncVMPPClass) GetAlarmConfig(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_alarm_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the is_alarm_enabled field of the given VMPP.
+func (_class AsyncVMPPClass) GetIsAlarmEnabled(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_is_alarm_enabled"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the VMs field of the given VMPP.
+func (_class AsyncVMPPClass) GetVMs(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_VMs"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the archive_last_run_time field of the given VMPP.
+func (_class AsyncVMPPClass) GetArchiveLastRunTime(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_archive_last_run_time"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the is_archive_running field of the given VMPP.
+func (_class AsyncVMPPClass) GetIsArchiveRunning(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_is_archive_running"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the archive_schedule field of the given VMPP.
+func (_class AsyncVMPPClass) GetArchiveSchedule(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_archive_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the archive_frequency field of the given VMPP.
+func (_class AsyncVMPPClass) GetArchiveFrequency(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_archive_frequency"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the archive_target_config field of the given VMPP.
+func (_class AsyncVMPPClass) GetArchiveTargetConfig(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_archive_target_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the archive_target_type field of the given VMPP.
+func (_class AsyncVMPPClass) GetArchiveTargetType(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_archive_target_type"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the backup_last_run_time field of the given VMPP.
+func (_class AsyncVMPPClass) GetBackupLastRunTime(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_backup_last_run_time"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the is_backup_running field of the given VMPP.
+func (_class AsyncVMPPClass) GetIsBackupRunning(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_is_backup_running"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the backup_schedule field of the given VMPP.
+func (_class AsyncVMPPClass) GetBackupSchedule(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_backup_schedule"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the backup_frequency field of the given VMPP.
+func (_class AsyncVMPPClass) GetBackupFrequency(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_backup_frequency"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the backup_retention_value field of the given VMPP.
+func (_class AsyncVMPPClass) GetBackupRetentionValue(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_backup_retention_value"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the backup_type field of the given VMPP.
+func (_class AsyncVMPPClass) GetBackupType(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_backup_type"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the is_policy_enabled field of the given VMPP.
+func (_class AsyncVMPPClass) GetIsPolicyEnabled(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_is_policy_enabled"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the name/description field of the given VMPP.
+func (_class AsyncVMPPClass) GetNameDescription(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_name_description"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the name/label field of the given VMPP.
+func (_class AsyncVMPPClass) GetNameLabel(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the uuid field of the given VMPP.
+func (_class AsyncVMPPClass) GetUUID(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get all the VMPP instances with the given label.
+func (_class AsyncVMPPClass) GetByNameLabel(sessionID SessionRef, label string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_by_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_labelArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "label"), label)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _labelArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Destroy the specified VMPP instance.
+func (_class AsyncVMPPClass) Destroy(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.destroy"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Create a new VMPP instance, and return its handle.
+// The constructor args are: name_label, name_description, is_policy_enabled, backup_type, backup_retention_value, backup_frequency, backup_schedule, archive_target_type, archive_target_config, archive_frequency, archive_schedule, is_alarm_enabled, alarm_config (* = non-optional).
+func (_class AsyncVMPPClass) Create(sessionID SessionRef, args VMPPRecord) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.create"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_argsArg, _err := convertVMPPRecordToXen(fmt.Sprintf("%s(%s)", _method, "args"), args)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _argsArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a reference to the VMPP instance with the specified UUID.
+func (_class AsyncVMPPClass) GetByUUID(sessionID SessionRef, uuid string) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_by_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_uuidArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "uuid"), uuid)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _uuidArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a record containing the current state of the given VMPP.
+func (_class AsyncVMPPClass) GetRecord(sessionID SessionRef, self VMPPRef) (_retval TaskRef, _err error) {
+	_method := "Async.VMPP.get_record"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMPPRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
 	return
 }

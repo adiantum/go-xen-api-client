@@ -51,6 +51,11 @@ type ConsoleClass struct {
 	client *Client
 }
 
+// A console
+type AsyncConsoleClass struct {
+	client *Client
+}
+
 // Return a map of console references to console records for all consoles known to the system.
 func (_class ConsoleClass) GetAllRecords(sessionID SessionRef) (_retval map[ConsoleRef]ConsoleRecord, _err error) {
 	_method := "console.get_all_records"
@@ -307,5 +312,280 @@ func (_class ConsoleClass) GetRecord(sessionID SessionRef, self ConsoleRef) (_re
 		return
 	}
 	_retval, _err = convertConsoleRecordToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a map of console references to console records for all consoles known to the system.
+func (_class AsyncConsoleClass) GetAllRecords(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_all_records"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a list of all the consoles known to the system.
+func (_class AsyncConsoleClass) GetAll(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_all"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Remove the given key and its corresponding value from the other_config field of the given console.  If the key is not in that Map, then do nothing.
+func (_class AsyncConsoleClass) RemoveFromOtherConfig(sessionID SessionRef, self ConsoleRef, key string) (_retval TaskRef, _err error) {
+	_method := "Async.console.remove_from_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Add the given key-value pair to the other_config field of the given console.
+func (_class AsyncConsoleClass) AddToOtherConfig(sessionID SessionRef, self ConsoleRef, key string, value string) (_retval TaskRef, _err error) {
+	_method := "Async.console.add_to_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_keyArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "key"), key)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the other_config field of the given console.
+func (_class AsyncConsoleClass) SetOtherConfig(sessionID SessionRef, self ConsoleRef, value map[string]string) (_retval TaskRef, _err error) {
+	_method := "Async.console.set_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToStringMapToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the other_config field of the given console.
+func (_class AsyncConsoleClass) GetOtherConfig(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the VM field of the given console.
+func (_class AsyncConsoleClass) GetVM(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_VM"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the location field of the given console.
+func (_class AsyncConsoleClass) GetLocation(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_location"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the protocol field of the given console.
+func (_class AsyncConsoleClass) GetProtocol(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_protocol"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the uuid field of the given console.
+func (_class AsyncConsoleClass) GetUUID(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Destroy the specified console instance.
+func (_class AsyncConsoleClass) Destroy(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.destroy"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Create a new console instance, and return its handle.
+// The constructor args are: other_config* (* = non-optional).
+func (_class AsyncConsoleClass) Create(sessionID SessionRef, args ConsoleRecord) (_retval TaskRef, _err error) {
+	_method := "Async.console.create"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_argsArg, _err := convertConsoleRecordToXen(fmt.Sprintf("%s(%s)", _method, "args"), args)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _argsArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a reference to the console instance with the specified UUID.
+func (_class AsyncConsoleClass) GetByUUID(sessionID SessionRef, uuid string) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_by_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_uuidArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "uuid"), uuid)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _uuidArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a record containing the current state of the given console.
+func (_class AsyncConsoleClass) GetRecord(sessionID SessionRef, self ConsoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.console.get_record"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertConsoleRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
 	return
 }

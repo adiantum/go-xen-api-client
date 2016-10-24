@@ -55,6 +55,11 @@ type VMApplianceClass struct {
 	client *Client
 }
 
+// VM appliance
+type AsyncVMApplianceClass struct {
+	client *Client
+}
+
 // Return a map of VM_appliance references to VM_appliance records for all VM_appliances known to the system.
 func (_class VMApplianceClass) GetAllRecords(sessionID SessionRef) (_retval map[VMApplianceRef]VMApplianceRecord, _err error) {
 	_method := "VM_appliance.get_all_records"
@@ -473,5 +478,462 @@ func (_class VMApplianceClass) GetRecord(sessionID SessionRef, self VMApplianceR
 		return
 	}
 	_retval, _err = convertVMApplianceRecordToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a map of VM_appliance references to VM_appliance records for all VM_appliances known to the system.
+func (_class AsyncVMApplianceClass) GetAllRecords(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_all_records"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a list of all the VM_appliances known to the system.
+func (_class AsyncVMApplianceClass) GetAll(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_all"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Recover the VM appliance
+//
+// Errors:
+//  VM_REQUIRES_SR - You attempted to run a VM on a host which doesn't have access to an SR needed by the VM. The VM has at least one VBD attached to a VDI in the SR.
+func (_class AsyncVMApplianceClass) Recover(sessionID SessionRef, self VMApplianceRef, sessionTo SessionRef, force bool) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.recover"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_sessionToArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_to"), sessionTo)
+	if _err != nil {
+		return
+	}
+	_forceArg, _err := convertBoolToXen(fmt.Sprintf("%s(%s)", _method, "force"), force)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _sessionToArg, _forceArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the list of SRs required by the VM appliance to recover.
+func (_class AsyncVMApplianceClass) GetSRsRequiredForRecovery(sessionID SessionRef, self VMApplianceRef, sessionTo SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_SRs_required_for_recovery"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_sessionToArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_to"), sessionTo)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _sessionToArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Assert whether all SRs required to recover this VM appliance are available.
+//
+// Errors:
+//  VM_REQUIRES_SR - You attempted to run a VM on a host which doesn't have access to an SR needed by the VM. The VM has at least one VBD attached to a VDI in the SR.
+func (_class AsyncVMApplianceClass) AssertCanBeRecovered(sessionID SessionRef, self VMApplianceRef, sessionTo SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.assert_can_be_recovered"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_sessionToArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_to"), sessionTo)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _sessionToArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// For each VM in the appliance, try to shut it down cleanly. If this fails, perform a hard shutdown of the VM.
+//
+// Errors:
+//  OPERATION_PARTIALLY_FAILED - Some VMs belonging to the appliance threw an exception while carrying out the specified operation
+func (_class AsyncVMApplianceClass) Shutdown(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.shutdown"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Perform a hard shutdown of all the VMs in the appliance
+//
+// Errors:
+//  OPERATION_PARTIALLY_FAILED - Some VMs belonging to the appliance threw an exception while carrying out the specified operation
+func (_class AsyncVMApplianceClass) HardShutdown(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.hard_shutdown"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Perform a clean shutdown of all the VMs in the appliance
+//
+// Errors:
+//  OPERATION_PARTIALLY_FAILED - Some VMs belonging to the appliance threw an exception while carrying out the specified operation
+func (_class AsyncVMApplianceClass) CleanShutdown(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.clean_shutdown"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Start all VMs in the appliance
+//
+// Errors:
+//  OPERATION_PARTIALLY_FAILED - Some VMs belonging to the appliance threw an exception while carrying out the specified operation
+func (_class AsyncVMApplianceClass) Start(sessionID SessionRef, self VMApplianceRef, paused bool) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.start"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_pausedArg, _err := convertBoolToXen(fmt.Sprintf("%s(%s)", _method, "paused"), paused)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _pausedArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the name/description field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) SetNameDescription(sessionID SessionRef, self VMApplianceRef, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.set_name_description"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Set the name/label field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) SetNameLabel(sessionID SessionRef, self VMApplianceRef, value string) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.set_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_valueArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "value"), value)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the VMs field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetVMs(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_VMs"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the current_operations field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetCurrentOperations(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_current_operations"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the allowed_operations field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetAllowedOperations(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_allowed_operations"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the name/description field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetNameDescription(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_name_description"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the name/label field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetNameLabel(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the uuid field of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetUUID(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get all the VM_appliance instances with the given label.
+func (_class AsyncVMApplianceClass) GetByNameLabel(sessionID SessionRef, label string) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_by_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_labelArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "label"), label)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _labelArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Destroy the specified VM_appliance instance.
+func (_class AsyncVMApplianceClass) Destroy(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.destroy"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Create a new VM_appliance instance, and return its handle.
+// The constructor args are: name_label, name_description (* = non-optional).
+func (_class AsyncVMApplianceClass) Create(sessionID SessionRef, args VMApplianceRecord) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.create"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_argsArg, _err := convertVMApplianceRecordToXen(fmt.Sprintf("%s(%s)", _method, "args"), args)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _argsArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a reference to the VM_appliance instance with the specified UUID.
+func (_class AsyncVMApplianceClass) GetByUUID(sessionID SessionRef, uuid string) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_by_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_uuidArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "uuid"), uuid)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _uuidArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a record containing the current state of the given VM_appliance.
+func (_class AsyncVMApplianceClass) GetRecord(sessionID SessionRef, self VMApplianceRef) (_retval TaskRef, _err error) {
+	_method := "Async.VM_appliance.get_record"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertVMApplianceRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
 	return
 }

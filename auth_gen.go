@@ -27,6 +27,11 @@ type AuthClass struct {
 	client *Client
 }
 
+// Management of remote authentication services
+type AsyncAuthClass struct {
+	client *Client
+}
+
 // This calls queries the external directory service to obtain the transitively-closed set of groups that the the subject_identifier is member of.
 func (_class AuthClass) GetGroupMembership(sessionID SessionRef, subjectIdentifier string) (_retval []string, _err error) {
 	_method := "auth.get_group_membership"
@@ -81,5 +86,62 @@ func (_class AuthClass) GetSubjectIdentifier(sessionID SessionRef, subjectName s
 		return
 	}
 	_retval, _err = convertStringToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This calls queries the external directory service to obtain the transitively-closed set of groups that the the subject_identifier is member of.
+func (_class AsyncAuthClass) GetGroupMembership(sessionID SessionRef, subjectIdentifier string) (_retval TaskRef, _err error) {
+	_method := "Async.auth.get_group_membership"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_subjectIdentifierArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "subject_identifier"), subjectIdentifier)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _subjectIdentifierArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call queries the external directory service to obtain the user information (e.g. username, organization etc) from the specified subject_identifier
+func (_class AsyncAuthClass) GetSubjectInformationFromIdentifier(sessionID SessionRef, subjectIdentifier string) (_retval TaskRef, _err error) {
+	_method := "Async.auth.get_subject_information_from_identifier"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_subjectIdentifierArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "subject_identifier"), subjectIdentifier)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _subjectIdentifierArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call queries the external directory service to obtain the subject_identifier as a string from the human-readable subject_name
+func (_class AsyncAuthClass) GetSubjectIdentifier(sessionID SessionRef, subjectName string) (_retval TaskRef, _err error) {
+	_method := "Async.auth.get_subject_identifier"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_subjectNameArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "subject_name"), subjectName)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _subjectNameArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
 	return
 }

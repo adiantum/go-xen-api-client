@@ -38,6 +38,11 @@ type SubjectClass struct {
 	client *Client
 }
 
+// A user or group that can log in xapi
+type AsyncSubjectClass struct {
+	client *Client
+}
+
 // Return a map of subject references to subject records for all subjects known to the system.
 func (_class SubjectClass) GetAllRecords(sessionID SessionRef) (_retval map[SubjectRef]SubjectRecord, _err error) {
 	_method := "subject.get_all_records"
@@ -271,5 +276,253 @@ func (_class SubjectClass) GetRecord(sessionID SessionRef, self SubjectRef) (_re
 		return
 	}
 	_retval, _err = convertSubjectRecordToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a map of subject references to subject records for all subjects known to the system.
+func (_class AsyncSubjectClass) GetAllRecords(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_all_records"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Return a list of all the subjects known to the system.
+func (_class AsyncSubjectClass) GetAll(sessionID SessionRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_all"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call returns a list of permission names given a subject
+func (_class AsyncSubjectClass) GetPermissionsNameLabel(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_permissions_name_label"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call removes a role from a subject
+func (_class AsyncSubjectClass) RemoveFromRoles(sessionID SessionRef, self SubjectRef, role RoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.remove_from_roles"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_roleArg, _err := convertRoleRefToXen(fmt.Sprintf("%s(%s)", _method, "role"), role)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _roleArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// This call adds a new role to a subject
+func (_class AsyncSubjectClass) AddToRoles(sessionID SessionRef, self SubjectRef, role RoleRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.add_to_roles"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_roleArg, _err := convertRoleRefToXen(fmt.Sprintf("%s(%s)", _method, "role"), role)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg, _roleArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the roles field of the given subject.
+func (_class AsyncSubjectClass) GetRoles(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_roles"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the other_config field of the given subject.
+func (_class AsyncSubjectClass) GetOtherConfig(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_other_config"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the subject_identifier field of the given subject.
+func (_class AsyncSubjectClass) GetSubjectIdentifier(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_subject_identifier"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get the uuid field of the given subject.
+func (_class AsyncSubjectClass) GetUUID(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Destroy the specified subject instance.
+func (_class AsyncSubjectClass) Destroy(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.destroy"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Create a new subject instance, and return its handle.
+// The constructor args are: subject_identifier, other_config (* = non-optional).
+func (_class AsyncSubjectClass) Create(sessionID SessionRef, args SubjectRecord) (_retval TaskRef, _err error) {
+	_method := "Async.subject.create"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_argsArg, _err := convertSubjectRecordToXen(fmt.Sprintf("%s(%s)", _method, "args"), args)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _argsArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a reference to the subject instance with the specified UUID.
+func (_class AsyncSubjectClass) GetByUUID(sessionID SessionRef, uuid string) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_by_uuid"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_uuidArg, _err := convertStringToXen(fmt.Sprintf("%s(%s)", _method, "uuid"), uuid)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _uuidArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
+	return
+}
+
+// Get a record containing the current state of the given subject.
+func (_class AsyncSubjectClass) GetRecord(sessionID SessionRef, self SubjectRef) (_retval TaskRef, _err error) {
+	_method := "Async.subject.get_record"
+	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
+	if _err != nil {
+		return
+	}
+	_selfArg, _err := convertSubjectRefToXen(fmt.Sprintf("%s(%s)", _method, "self"), self)
+	if _err != nil {
+		return
+	}
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	if _err != nil {
+		return
+	}
+	_retval, _err = convertTaskRefToGo(_method + " -> ", _result.Value)
 	return
 }

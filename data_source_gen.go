@@ -45,3 +45,8 @@ type DataSourceRef string
 type DataSourceClass struct {
 	client *Client
 }
+
+// Data sources for logging in RRDs
+type AsyncDataSourceClass struct {
+	client *Client
+}
