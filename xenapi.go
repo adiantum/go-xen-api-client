@@ -942,6 +942,20 @@ func (generator *apiGenerator) run() (err error) {
 		return
 	}
 
+	// exceptions (for third party xenapi.json)
+	//
+	// * event.timestamp field is actually a string, not a datetime
+	//
+	for _, class := range generator.classes {
+		if class.Name == "event" {
+			for _, field := range class.Fields {
+				if field.Name == "timestamp" {
+					field.Type = "string"
+				}
+			}
+		}
+	}
+
 	err = generator.prepTemplates()
 	if err != nil {
 		return

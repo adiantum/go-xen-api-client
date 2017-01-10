@@ -7693,7 +7693,7 @@ func convertEventRecordToGo(context string, input interface{}) (record EventReco
 	}
   timestampValue, ok := rpcStruct["timestamp"]
 	if ok && timestampValue != nil {
-  	record.Timestamp, err = convertTimeToGo(fmt.Sprintf("%s.%s", context, "timestamp"), timestampValue)
+  	record.Timestamp, err = convertStringToGo(fmt.Sprintf("%s.%s", context, "timestamp"), timestampValue)
 		if err != nil {
 			return
 		}

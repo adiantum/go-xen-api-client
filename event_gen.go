@@ -35,7 +35,7 @@ type EventRecord struct {
   // An ID, monotonically increasing, and local to the current session
 	ID int
   // The time at which the event occurred
-	Timestamp time.Time
+	Timestamp string
   // The name of the class of the object that changed
 	Class string
   // The operation that was performed
