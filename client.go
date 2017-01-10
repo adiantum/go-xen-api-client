@@ -5,8 +5,9 @@ package xenAPI
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/amfranz/go-xmlrpc-client"
 	"net/http"
+
+	"github.com/amfranz/go-xmlrpc-client"
 )
 
 type APIResult struct {
@@ -44,7 +45,7 @@ func (client *Client) APICall(method string, params ...interface{}) (result APIR
 		err = &Error{
 			code:    details[0].(string),
 			objtype: _objtype, // might be nil
-			uuid:    _uuid, // optional
+			uuid:    _uuid,    // optional
 		}
 		return
 	}
@@ -66,4 +67,9 @@ func NewClient(url string, transport *http.Transport) (*Client, error) {
 	}
 
 	return prepClient(rpc), nil
+}
+
+// Close closes close the xapi connection
+func (client *Client) Close() (err error) {
+	return client.rpc.Close()
 }
