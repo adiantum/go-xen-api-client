@@ -6,6 +6,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/johnprather/go-xmlrpc-client"
 )
@@ -55,6 +56,10 @@ func (client *Client) APICall(method string, params ...interface{}) (result APIR
 }
 
 func NewClient(url string, transport *http.Transport) (*Client, error) {
+	return NewClientTimeout(url, transport, 0)
+}
+
+func NewClientTimeout(url string, transport *http.Transport, timeout time.Duration) (*Client, error) {
 	if transport == nil {
 		transport = &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
